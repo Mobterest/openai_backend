@@ -4,11 +4,11 @@ const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.json({extended: true}));
 
-const port = 2000;
+const port = 1000;
 
-const {Configuration, OpenAIApi, Configuration} = require('openai');
+const {Configuration, OpenAIApi} = require('openai');
 const configuration = new Configuration({
-    apiKey: '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'
+    apiKey: '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'
 })
 const openai = new OpenAIApi(configuration);
 
@@ -16,8 +16,8 @@ const openai = new OpenAIApi(configuration);
 app.post('/request', async function(req, res) {
     const response = await openai.createCompletion({
         model: "code-davinci-002",
-        prompt: req.body.prompt,
-        max_tokens: 2048,
+        prompt: req.body.widget +  "(//Dart \n //" +req.body.prompt + " \n",
+        max_tokens: 100,
         temperature: 0,
         stop: "\n"
     });
